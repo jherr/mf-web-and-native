@@ -4,5 +4,5 @@ export const mfConfig = {
   exposes: {
     "./store": "./src/store",
   },
-  shared: ["react", "react-dom", "zustand"],
+  shared: [],
 };

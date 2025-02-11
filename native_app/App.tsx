@@ -19,37 +19,16 @@ import {
 } from 'react-native';
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
-import {useStore, StoreApi} from 'zustand';
-
-import type {Store} from 'MyRemote/store';
-
-function StoreButtons({store}: {store: StoreApi<Store>}) {
-  const {count, increment, decrement, reset} = useStore(store);
-  return (
-    <View>
-      <Text style={styles.count}>Count: {count}</Text>
-      <TouchableOpacity onPress={increment}>
-        <Text style={styles.button}>Increment</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={decrement}>
-        <Text style={styles.button}>Decrement</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={reset}>
-        <Text style={styles.button}>Reset</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 function StoreWrapper() {
-  const [store, setStore] = useState<StoreApi<Store>>();
+  const [store, setStore] = useState<string>();
   useEffect(() => {
-    import('MyRemote/store').then(module => setStore(module.store));
+    import('MyRemote/store').then(module => setStore(module.default));
   }, []);
 
   if (!store) return null;
 
-  return <StoreButtons store={store} />;
+  return <Text>{store}</Text>;
 }
 
 type SectionProps = PropsWithChildren<{
